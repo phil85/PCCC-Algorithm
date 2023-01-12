@@ -31,7 +31,13 @@ Gurobi is a commercial mathematical programming solver. Free academic licenses a
 The main.py file contains code that applies the PCCC algorithm to an illustrative example.
 
 ```python
-labels = pccc(X, n_clusters, ml=ml, cl=cl, sml=sml, scl=scl, sml_weights=sml_weights, scl_weights=scl_weights,
+labels = pccc(X, n_clusters,
+              ml=hard_mustlink_constraints,
+              cl=hard_cannotlink_constraints,
+              sml=soft_mustlink_constraints,
+              scl=soft_cannotlink_constraints,
+              sml_weights=confidence_levels_of_soft_mustlink_constraints,
+              scl_weights=confidence_levels_of_soft_cannotlink_constraints,
               random_state=24)
 ```
 
