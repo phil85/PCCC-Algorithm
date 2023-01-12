@@ -16,7 +16,7 @@ PCCC depends on:
 * numpy==1.23.5
 * networkx==2.7.1
 * scipy==1.9.3
-* gurobi==10.0.0
+* gurobipy==10.0.0
 
 Gurobi is a commercial mathematical programming solver. Free academic licenses are available [here](https://www.gurobi.com/academia/academic-program-and-licenses/). 
 
