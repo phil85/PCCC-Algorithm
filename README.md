@@ -6,7 +6,7 @@
 
 </h1>
 
-An algorithm for clustering with hard and soft must-link and cannot-link constraints. A detailed description of the algorithm can be found in https://arxiv.org/abs/2212.14437.
+An algorithm for clustering with hard and soft must-link and cannot-link constraints. A detailed description of the algorithm can be found in https://arxiv.org/abs/2212.14437. The data of the paper is available under https://github.com/phil85/PCCC-Data.
 
 ## Dependencies
 
