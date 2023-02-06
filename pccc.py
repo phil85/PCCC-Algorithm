@@ -1,3 +1,5 @@
+# © 2023, Universität Bern, Institut für Finanzmanagement, Philipp Baumann
+
 import gurobipy as gb
 from sklearn.neighbors import KDTree
 from sklearn.cluster import kmeans_plusplus
