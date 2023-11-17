@@ -32,12 +32,12 @@ The main.py file contains code that applies the PCCC algorithm to an illustrativ
 
 ```python
 labels = pccc(X, n_clusters,
-              ml=hard_mustlink_constraints,
-              cl=hard_cannotlink_constraints,
-              sml=soft_mustlink_constraints,
-              scl=soft_cannotlink_constraints,
-              sml_weights=confidence_levels_of_soft_mustlink_constraints,
-              scl_weights=confidence_levels_of_soft_cannotlink_constraints,
+              ml=hard_must_link_constraints,
+              cl=hard_cannot_link_constraints,
+              sml=soft_must_link_constraints,
+              scl=soft_cannot_link_constraints,
+              sml_weights=confidence_levels_of_soft_must_link_constraints,
+              scl_weights=confidence_levels_of_soft_cannot_link_constraints,
               random_state=24)
 ```
 

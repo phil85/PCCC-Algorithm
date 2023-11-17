@@ -82,7 +82,7 @@ def preprocessing(data, ml, cl, sml, scl, sml_weights, scl_weights):
         pandas.core.series.Series, sklearn.neighbors._kd_tree.KDTree]:
 
         data (np.array): feature vectors of representatives
-        weights (np.array): number of objects that are represented by representatives
+        weights (np.array): number of objects (feature vectors) that are represented by representatives
         mapping (np.array): maps objects (positions) to representatives (values)
         cl (np.array): array that contains hard cannot-link constraints on representatives as rows
         cl_weights (np.array): number of original cannot-link constraints that are represented by new cl constraints

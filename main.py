@@ -33,21 +33,21 @@ y = df['ground_truth_label'].values
 
 # %% Define information on pairs of objects
 
-hard_mustlink_constraints = [(2, 6), (9, 10)]
-hard_cannotlink_constraints = [(2, 7), (6, 7), (5, 11)]
-soft_mustlink_constraints = [(1, 2), (1, 6)]
-soft_cannotlink_constraints = [(4, 8), (8, 13)]
-confidence_levels_of_soft_mustlink_constraints = [0.8, 0.6]
-confidence_levels_of_soft_cannotlink_constraints = [0.9, 0.5]
+hard_must_link_constraints = [(2, 6), (9, 10)]
+hard_cannot_link_constraints = [(2, 7), (6, 7), (5, 11)]
+soft_must_link_constraints = [(1, 2), (1, 6)]
+soft_cannot_link_constraints = [(4, 8), (8, 13)]
+confidence_levels_of_soft_must_link_constraints = [0.8, 0.6]
+confidence_levels_of_soft_cannot_link_constraints = [0.9, 0.5]
 
 # %% Apply algorithm
 labels = pccc(X, n_clusters,
-              ml=hard_mustlink_constraints,
-              cl=hard_cannotlink_constraints,
-              sml=soft_mustlink_constraints,
-              scl=soft_cannotlink_constraints,
-              sml_weights=confidence_levels_of_soft_mustlink_constraints,
-              scl_weights=confidence_levels_of_soft_cannotlink_constraints,
+              ml=hard_must_link_constraints,
+              cl=hard_cannot_link_constraints,
+              sml=soft_must_link_constraints,
+              scl=soft_cannot_link_constraints,
+              sml_weights=confidence_levels_of_soft_must_link_constraints,
+              scl_weights=confidence_levels_of_soft_cannot_link_constraints,
               random_state=24)
 
 # %% Evaluate assignment
