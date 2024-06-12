@@ -11,12 +11,18 @@ An algorithm for clustering with hard and soft must-link and cannot-link constra
 ## Dependencies
 
 PCCC depends on:
-* pandas==1.5.2
-* scikit-learn==1.0.2
-* numpy==1.23.5
-* networkx==2.7.1
-* scipy==1.9.3
-* gurobipy==10.0.0
+* gurobipy==11.0.2
+* joblib==1.4.2
+* networkx==3.3
+* numpy==1.26.4
+* pandas==2.2.2
+* python-dateutil==2.9.0.post0
+* pytz==2024.1
+* scikit-learn==1.5.0
+* scipy==1.13.1
+* six==1.16.0
+* threadpoolctl==3.5.0
+* tzdata==2024.1
 
 Gurobi is a commercial mathematical programming solver. Free academic licenses are available [here](https://www.gurobi.com/academia/academic-program-and-licenses/). 
 
@@ -31,14 +37,16 @@ Gurobi is a commercial mathematical programming solver. Free academic licenses a
 The main.py file contains code that applies the PCCC algorithm to an illustrative example.
 
 ```python
-labels = pccc(X, n_clusters,
+output = pccc(X, n_clusters,
               ml=hard_must_link_constraints,
               cl=hard_cannot_link_constraints,
               sml=soft_must_link_constraints,
               scl=soft_cannot_link_constraints,
               sml_weights=confidence_levels_of_soft_must_link_constraints,
               scl_weights=confidence_levels_of_soft_cannot_link_constraints,
-              random_state=24)
+              cluster_repositioning='violations_inertia', 
+              dynamic_n_neighbors='n_violations_neighbors.500.10.after_repositioning',
+              random_state=4)
 ```
 
 ## Reference
