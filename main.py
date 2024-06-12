@@ -41,14 +41,16 @@ confidence_levels_of_soft_must_link_constraints = [0.8, 0.6]
 confidence_levels_of_soft_cannot_link_constraints = [0.9, 0.5]
 
 # %% Apply algorithm
-labels = pccc(X, n_clusters,
+output = pccc(X, n_clusters,
               ml=hard_must_link_constraints,
               cl=hard_cannot_link_constraints,
               sml=soft_must_link_constraints,
               scl=soft_cannot_link_constraints,
               sml_weights=confidence_levels_of_soft_must_link_constraints,
               scl_weights=confidence_levels_of_soft_cannot_link_constraints,
-              random_state=24)
+              cluster_repositioning='violations_inertia', # ='none'
+              dynamic_n_neighbors='n_violations_neighbors.500.10.after_repositioning', # ='none'
+              random_state=4)
 
 # %% Evaluate assignment
-print('ARI: ', adjusted_rand_score(y, labels))
+print('ARI: ', adjusted_rand_score(y, output['labels']))
