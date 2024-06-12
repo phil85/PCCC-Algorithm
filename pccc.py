@@ -354,7 +354,7 @@ def assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, kdt, lo
     representatives = np.arange(n_representatives)
 
     # Get control parameters
-    metric = kwargs.get('metric', 'euclidean')
+    metric = kwargs.get('metric', 'squared_euclidean')
     penalty = kwargs.get('penalty', 'avg_distance')
     n_neighbors = kwargs.get('n_neighbors', n_clusters)
     time_limit = kwargs.get('time_limit', 1e6)
