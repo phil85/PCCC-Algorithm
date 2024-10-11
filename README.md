@@ -2,7 +2,7 @@
 <h1 align="center">
   <br>
   
-  ![MPFC](README/pccc.gif)
+  ![MPFC](README/input.png)
 
 </h1>
 

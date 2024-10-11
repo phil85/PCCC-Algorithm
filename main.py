@@ -48,8 +48,8 @@ output = pccc(X, n_clusters,
               scl=soft_cannot_link_constraints,
               sml_weights=confidence_levels_of_soft_must_link_constraints,
               scl_weights=confidence_levels_of_soft_cannot_link_constraints,
-              cluster_repositioning='violations_inertia', # ='none'
-              dynamic_n_neighbors='n_violations_neighbors.500.10.after_repositioning', # ='none'
+              cluster_repositioning='violations_inertia',  # ='none'
+              dynamic_n_neighbors='n_violations_neighbors.500.10.after_repositioning',  # ='none'
               random_state=4)
 
 # %% Evaluate assignment
