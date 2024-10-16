@@ -60,11 +60,11 @@ Bibtex:
 ```
 @article{baumann2023pccc,
 	author={Baumann, Philipp and Hochbaum, Dorit S.},
-	booktitle={},
-	title = {PCCC: the pairwise-confidence-constraints-clustering algorithm},
-	year={2023},
-	url = {https://arxiv.org/abs/2212.14437},
-	doi = {10.48550/ARXIV.2212.14437},
+	journal={INFORMS Journal on Computing},
+	title = {An algorithm for clustering with confidence-based must-Link and cannot-link constraints},
+	year={2024},
+	url = {https://doi.org/10.1287/ijoc.2023.0419},
+	doi = {10.1287/ijoc.2023.0419},
 }
 ```
 
