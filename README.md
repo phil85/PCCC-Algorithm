@@ -1,40 +1,39 @@
 
 <h1 align="center">
+    PCCC: An Algorithm for Clustering with Confidence-Based Must-Link
+and Cannot-Link Constraints
   <br>
   
   ![MPFC](README/cover.png)
 
+[![License](https://img.shields.io/badge/License-MIT_License-blue)](LICENSE)
+[![Paper](https://img.shields.io/badge/Paper-arxiv-red)](https://doi.org/10.1287/ijoc.2023.0419)
+
 </h1>
 
-An algorithm for clustering with hard and soft must-link and cannot-link constraints. A detailed description of the algorithm can be found in https://arxiv.org/abs/2212.14437. The data of the paper is available under https://github.com/phil85/PCCC-Data.
-
-## Dependencies
-
-PCCC depends on:
-* gurobipy==11.0.2
-* joblib==1.4.2
-* networkx==3.3
-* numpy==1.26.4
-* pandas==2.2.2
-* python-dateutil==2.9.0.post0
-* pytz==2024.1
-* scikit-learn==1.5.0
-* scipy==1.13.1
-* six==1.16.0
-* threadpoolctl==3.5.0
-* tzdata==2024.1
-
-Gurobi is a commercial mathematical programming solver. Free academic licenses are available [here](https://www.gurobi.com/academia/academic-program-and-licenses/). 
+The PCCC algorithm is a clustering method that can deal with both hard and soft must-link and cannot-link constraints. Individual confidence values in (0, 1] can be provided 
+for all soft constraints. The higher the confidence value, the harder the algorithm tries to satisfy it. A detailed description of the algorithm can be found in our paper https://doi.org/10.1287/ijoc.2023.0419. 
 
 ## Installation
 
 1) Clone this repository
-2) Download and install Gurobi (https://www.gurobi.com/downloads/)
-3) Install the other required packages
+2) Install Gurobi (https://www.gurobi.com/). Gurobi is a commercial mathematical programming solver. Free academic licenses are available.
+3) Create a virtual environment
+
+```
+python -m venv venv
+```
+
+4) Activate the virtual environment and install the required Python packages using the following command: 
+
+```
+pip install -r requirements.txt
+```
+
 
 ## Usage
 
-The main.py file contains code that applies the PCCC algorithm to an illustrative example.
+The run_illustrative_example.py file contains code that applies the PCCC algorithm to an illustrative example.
 
 ```python
 output = pccc(X, n_clusters,
@@ -44,16 +43,18 @@ output = pccc(X, n_clusters,
               scl=soft_cannot_link_constraints,
               sml_weights=confidence_levels_of_soft_must_link_constraints,
               scl_weights=confidence_levels_of_soft_cannot_link_constraints,
-              cluster_repositioning='violations_inertia', 
-              dynamic_n_neighbors='n_violations_neighbors.500.10.after_repositioning',
+              cluster_repositioning=True,  
+              dynamic_search_space_enlargement=True,
               random_state=4)
 ```
+
+The run_instance.py file demonstrates how to load an instance from a file and apply the PCCC algorithm to it.
 
 ## Reference
 
 Please cite the following paper if you use this algorithm.
 
-**Baumann, P. and Hochbaum D. S.** (2023): PCCC: The Pairwise-Confidence-Constraints-Clustering Algorithm. https://arxiv.org/abs/2212.14437
+**Baumann, P. and Hochbaum D. S.** (2024): An algorithm for clustering with confidence-based must-Link and cannot-link constraints. INFORMS Journal on Computing. https://doi.org/10.1287/ijoc.2023.0419.
 
 Bibtex:
 ```
