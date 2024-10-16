@@ -58,7 +58,7 @@ Please cite the following paper if you use this algorithm.
 
 Bibtex:
 ```
-@article{baumann2023pccc,
+@article{baumann2024pccc,
 	author={Baumann, Philipp and Hochbaum, Dorit S.},
 	journal={INFORMS Journal on Computing},
 	title = {An algorithm for clustering with confidence-based must-Link and cannot-link constraints},
