@@ -1,3 +1,6 @@
+# © 2024, University of Bern, Group for Business Analytics, Operations Research and Quantitative Methods,
+# Philipp Baumann
+
 # %% Import packages
 import pandas as pd
 from pccc import pccc
