@@ -7,7 +7,7 @@ and Cannot-Link Constraints
   ![MPFC](README/cover.png)
 
 [![License](https://img.shields.io/badge/License-MIT_License-blue)](LICENSE)
-[![Paper](https://img.shields.io/badge/Paper-arxiv-red)](https://doi.org/10.1287/ijoc.2023.0419)
+[![Paper](https://img.shields.io/badge/Paper-INFORMS_Journal_on_Computing-green)](https://doi.org/10.1287/ijoc.2023.0419)
 
 </h1>
 
@@ -43,8 +43,8 @@ output = pccc(X, n_clusters,
               scl=soft_cannot_link_constraints,
               sml_weights=confidence_levels_of_soft_must_link_constraints,
               scl_weights=confidence_levels_of_soft_cannot_link_constraints,
-              cluster_repositioning=True,  
-              dynamic_search_space_enlargement=True,
+              cluster_repositioning='violations_inertia',  # ='none'
+              dynamic_n_neighbors='n_violations_neighbors.500.10.after_repositioning',  # ='none'
               random_state=4)
 ```
 
