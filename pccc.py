@@ -12,7 +12,6 @@ import warnings
 
 
 def choose_initial_cluster_centers(data, n_clusters, **kwargs):
-
     # Get parameters
     n_datapoints = data.shape[0]
     init = kwargs.get('init', 'k-means++')
@@ -39,7 +38,6 @@ def choose_initial_cluster_centers(data, n_clusters, **kwargs):
 
 def reposition_cluster_centers(data, n_clusters, labels, current_centers, weights, scl, confidence,
                                cluster_repositioning):
-
     if cluster_repositioning == 'inertia':
 
         # Get inertia per cluster
@@ -83,7 +81,6 @@ def reposition_cluster_centers(data, n_clusters, labels, current_centers, weight
 
 
 def get_weighted_violations_per_cluster(n_clusters, labels, scl, confidence):
-
     # Initialize violations per cluster
     weighted_violations_per_cluster = np.zeros(n_clusters)
 
@@ -111,7 +108,6 @@ def get_weighted_violations_per_cluster(n_clusters, labels, scl, confidence):
 
 
 def get_inertia_per_cluster(n_clusters, data, centers, labels, weights):
-
     # Compute inertia for each cluster
     inertia_per_object = ((data - centers[labels, :]) ** 2).sum(axis=1)
 
@@ -123,7 +119,6 @@ def get_inertia_per_cluster(n_clusters, data, centers, labels, weights):
 
 
 def update_centers(data, centers, n_clusters, labels, weights, scl, confidence):
-
     # Identify empty clusters
     non_empty_clusters = np.unique(labels)
     empty_clusters = np.setdiff1d(np.arange(n_clusters), non_empty_clusters)
@@ -143,7 +138,6 @@ def update_centers(data, centers, n_clusters, labels, weights, scl, confidence):
         # Reposition empty clusters
         position = -1
         for i in empty_clusters:
-
             # Get object from last cluster
             candidates = np.where(labels == rank[position])[0]
 
@@ -165,7 +159,6 @@ def update_centers(data, centers, n_clusters, labels, weights, scl, confidence):
 
 
 def preprocessing(data, ml, cl, sml, scl, sml_weights, scl_weights):
-
     # If there are no hard must-link constraints most of the preprocessing is skipped
     if len(ml) == 0:
         weights = np.ones(data.shape[0])
@@ -227,10 +220,7 @@ def preprocessing(data, ml, cl, sml, scl, sml_weights, scl_weights):
     # Merge all weights associated with soft constraints into one pandas series named confidence
     confidence, sml, scl = aggregate_confidence_values(scl, scl_weights, sml, sml_weights)
 
-    # Construct kdtree
-    kdt = KDTree(data)
-
-    return data, weights, mapping, cl, sml, scl, confidence, kdt
+    return data, weights, mapping, cl, sml, scl, confidence
 
 
 def aggregate_confidence_values(scl, scl_weights, sml, sml_weights):
@@ -285,7 +275,6 @@ def my_callback(model, where):
 
 def get_relevant_constraints_dynamic(constraints, n_clusters, n_neighbors, df_nearest_centers_unselected,
                                      df_nearest_centers_selected, n_neighbors_selected, selected_idx, unselected_idx):
-
     # Get number of cannot-link constraints
     n_constraints = constraints.shape[0]
     constraint_ids = np.arange(n_constraints)
@@ -346,8 +335,7 @@ def get_relevant_constraints_dynamic(constraints, n_clusters, n_neighbors, df_ne
     return idx_constraints, idx_clusters, relevant_constraints
 
 
-def assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, kdt, log, labels=None, **kwargs):
-
+def assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, log, labels=None, **kwargs):
     # Get parameters
     n_representatives = data.shape[0]
     n_clusters = centers.shape[0]
@@ -486,7 +474,6 @@ def assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, kdt, lo
             df_distances_unselected = pd.DataFrame(distances_unselected, index=unselected)
             df_nearest_centers_unselected = pd.DataFrame(nearest_centers_unselected, index=unselected)
 
-
             if increase_strategy == 'n_clusters':
                 n_neighbors_selected = n_clusters
             elif increase_strategy.isnumeric():
@@ -553,46 +540,18 @@ def assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, kdt, lo
 
         # Add variables from unselected representatives
         distances_unselected = {(i, df_nearest_centers_unselected.at[i, j]):
-                                    df_distances_unselected.at[i, j] * weights[i]
-                                 for i in unselected for j in range(n_neighbors)}
+                                df_distances_unselected.at[i, j] * weights[i]
+                                for i in unselected for j in range(n_neighbors)}
 
         # Add variables from selected representatives
         distances_selected = {(i, df_nearest_centers_selected.at[i, j]):
-                                  df_distances_selected.at[i, j] * weights[i]
-                               for i in selected for j in range(n_neighbors_selected)}
+                              df_distances_selected.at[i, j] * weights[i]
+                              for i in selected for j in range(n_neighbors_selected)}
 
         distances = {**distances_unselected, **distances_selected}
     else:
         distances = {(i, nearest_centers[i, j]): distances[i, j] * weights[i]
                      for i in range(n_representatives) for j in range(n_neighbors)}
-
-    # # Include empty clusters
-    # if dynamic_n_neighbors is not None and len(selected) > 0:
-    #     covered_clusters = np.unique(np.concatenate((nearest_centers_selected.ravel(),
-    #                                                  nearest_centers_unselected.ravel())))
-    # else:
-    #     covered_clusters = np.unique(nearest_centers)
-
-    # # Get empty clusters
-    # empty_clusters = np.setdiff1d(range(n_clusters), covered_clusters)
-    #
-    # if log_flag:
-    #     iteration_log['empty_clusters'] = len(empty_clusters)
-    #
-    # if len(empty_clusters) > 0:
-    #     # Determine the closest representatives for each empty cluster
-    #     distances_to_representatives, nearest_representatives = kdt.query(centers[empty_clusters, :])
-    #
-    #     if metric == 'squared_euclidean':
-    #         distances_to_representatives = distances_to_representatives ** 2
-    #
-    #     # Create dictionary
-    #     keys = zip(nearest_representatives[:, 0], empty_clusters)
-    #     values = distances_to_representatives[:, 0] * weights[nearest_representatives[:, 0]]
-    #     distances_to_representatives = dict(zip(keys, values))
-    #
-    #     # Merge dictionaries
-    #     distances = {**distances, **distances_to_representatives}
 
     # Add decision variables to model
     x = m.addVars(distances.keys(), vtype=gb.GRB.BINARY, obj=distances)
@@ -685,9 +644,6 @@ def assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, kdt, lo
     # Each representative must be assigned to a cluster
     m.addConstrs(x.sum(i, '*') == 1 for i in range(n_representatives))
 
-    # # Each cluster must have at least one representative
-    # m.addConstrs(x.sum('*', j) >= 1 for j in range(n_clusters))
-
     # Set solver parameters
     if verbose < 2:
         m.setParam('OutputFlag', 0)
@@ -772,7 +728,6 @@ def get_relevant_constraints(constraints, n_clusters, n_neighbors, nearest_cente
 
 
 def get_total_distance(data, centers, labels, weights, **kwargs):
-
     metric = kwargs.get('metric', 'euclidean')
 
     if metric == 'euclidean':
@@ -878,7 +833,6 @@ def initialize_log(log, X, cl, ml, scl, sml):
 
 
 def pccc(X, n_clusters, ml=None, cl=None, sml=None, scl=None, sml_weights=None, scl_weights=None, **kwargs):
-
     log_flag = kwargs.get('log_flag', False)
     max_iter = kwargs.get('max_iter', 1e6)
     time_limit = kwargs.get('time_limit', 1e6)
@@ -912,13 +866,12 @@ def pccc(X, n_clusters, ml=None, cl=None, sml=None, scl=None, sml_weights=None, 
 
     # Perform preprocessing
     if perform_preprocessing:
-        data, weights, mapping, cl, sml, scl, confidence, kdt = preprocessing(data, ml, cl, sml, scl, sml_weights,
-                                                                              scl_weights)
+        data, weights, mapping, cl, sml, scl, confidence = preprocessing(data, ml, cl, sml, scl, sml_weights,
+                                                                         scl_weights)
     else:
         weights = np.ones(data.shape[0])
         mapping = np.arange(data.shape[0])
         confidence, sml, scl = aggregate_confidence_values(scl, scl_weights, sml, sml_weights)
-        kdt = KDTree(data)
 
     # Perform feasibility check
     if data.shape[0] < n_clusters:
@@ -944,7 +897,7 @@ def pccc(X, n_clusters, ml=None, cl=None, sml=None, scl=None, sml_weights=None, 
 
     # Assign objects
     initial_labels = None
-    labels, total_penalty, log = assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, kdt, log,
+    labels, total_penalty, log = assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, log,
                                                 labels=initial_labels, **kwargs)
 
     # Perform feasibility check
@@ -972,8 +925,8 @@ def pccc(X, n_clusters, ml=None, cl=None, sml=None, scl=None, sml_weights=None, 
     while (n_iter < max_iter) and (elapsed_time < time_limit):
 
         # Assign objects
-        labels, total_penalty, log = assign_objects(data, centers, weights, ml, cl, sml, scl, confidence,
-                                                    kdt, log, labels=labels, **kwargs)
+        labels, total_penalty, log = assign_objects(data, centers, weights, ml, cl, sml, scl, confidence, log,
+                                                    labels=labels, **kwargs)
 
         # Perform feasibility check
         if labels is None:

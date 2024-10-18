@@ -29,11 +29,6 @@ scl = constraints['scl']
 sml_weights = constraints['sml_proba']
 scl_weights = constraints['scl_proba']
 
-if not sml_weights:
-    sml_weights = None
-if not scl_weights:
-    scl_weights = None
-
 # %% Apply PCCC algorithm
 output = pccc(X, n_clusters,
               ml=ml,
